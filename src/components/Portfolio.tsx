@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Mail, Linkedin, Github, ExternalLink, ChevronDown } from 'lucide-react';
+import { Mail, Linkedin, Github, ExternalLink, ChevronDown, ArrowRight, Code, Database, Brain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -29,28 +29,45 @@ const Portfolio = () => {
     {
       title: "Multimodal AI Chatbot with RAG & Session Memory",
       description: "Architected a versatile AI chatbot using Streamlit and LangChain, integrating multiple LLMs (Gemini, Llama) for text, PDF, and image analysis. Engineered a Retrieval-Augmented Generation (RAG) pipeline with ChromaDB and HuggingFace embeddings for accurate document Q&A.",
-      technologies: ["LLM", "Langchain", "Hugging Face", "Streamlit", "ChromaDB"]
+      technologies: ["LLM", "Langchain", "Hugging Face", "Streamlit", "ChromaDB"],
+      category: "AI/ML",
+      icon: Brain
     },
     {
       title: "ATS Resume Analyzer",
       description: "Built an interactive app using Gemini 1.5 Flash to evaluate resumes against job descriptions. Provided ATS-style feedback, resume improvement suggestions, and LLM-driven match scoring.",
-      technologies: ["Streamlit", "Gemini Flash", "Python", "PyPDF2"]
+      technologies: ["Streamlit", "Gemini Flash", "Python", "PyPDF2"],
+      category: "AI/ML",
+      icon: Brain
     },
     {
       title: "Movie Sentiment & Salary Predicting Model",
       description: "Developed a movie sentiment classifier with an LSTM model in TensorFlow, leveraging NLTK for text preprocessing to accurately predict sentiment.",
-      technologies: ["LSTM", "TensorFlow", "NLTK"]
+      technologies: ["LSTM", "TensorFlow", "NLTK"],
+      category: "Machine Learning",
+      icon: Code
     },
     {
       title: "Fine Tuning with LoRA",
       description: "Fine-tuned the Google Gemma-2B model on an English quotes dataset using 4-bit quantization (BitsAndBytes) and Low-Rank Adaptation (LoRA) to enhance performance on consumer hardware.",
-      technologies: ["Gemma", "Transformers", "Hugging Face", "LoRA"]
+      technologies: ["Gemma", "Transformers", "Hugging Face", "LoRA"],
+      category: "Deep Learning",
+      icon: Brain
     },
     {
       title: "British Airways Customer Model",
       description: "Developed a Random Forest model to predict customer booking completion, analyzing trends and feature importance using Matplotlib and Seaborn.",
-      technologies: ["Pandas", "Matplotlib", "Sklearn", "Seaborn"]
+      technologies: ["Pandas", "Matplotlib", "Sklearn", "Seaborn"],
+      category: "Data Science",
+      icon: Database
     }
+  ];
+
+  const stats = [
+    { number: "5+", label: "AI Projects" },
+    { number: "2", label: "Internships" },
+    { number: "10+", label: "Technologies" },
+    { number: "4", label: "Years Learning" }
   ];
 
   const experiences = [
@@ -76,9 +93,23 @@ const Portfolio = () => {
 
   return (
     <div className="min-h-screen">
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="text-2xl font-bold text-primary">RD</div>
+          <div className="flex gap-8">
+            <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">About</a>
+            <a href="#projects" className="text-muted-foreground hover:text-primary transition-colors">Projects</a>
+            <a href="#experience" className="text-muted-foreground hover:text-primary transition-colors">Experience</a>
+            <a href="#contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</a>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Section */}
       <section 
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        id="about"
+        className="relative min-h-screen flex items-center overflow-hidden pt-20"
         style={{
           backgroundImage: `url(${heroBackground})`,
           backgroundSize: 'cover',
@@ -86,51 +117,88 @@ const Portfolio = () => {
           backgroundAttachment: 'fixed'
         }}
       >
-        <div className="absolute inset-0 bg-background/80" />
-        <div 
-          className={`relative z-10 text-center max-w-4xl mx-auto px-6 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-          style={{ transform: `translateY(${scrollY * 0.2}px)` }}
-        >
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 glow-text">
-            RUTURAJ DAPHAL
-          </h1>
-          <h2 className="text-2xl md:text-3xl text-primary font-semibold mb-8">
-            AI & Generative AI Engineer
-          </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
-            AI & GenAI Developer skilled in building intelligent applications using LangChain, 
-            Gemini Pro, and OpenAI tools. Focused on creating scalable, real-world AI solutions 
-            with expertise in deep learning frameworks and vector databases like ChromaDB and FAISS.
-          </p>
-          
-          <div className="flex gap-6 justify-center mb-12">
-            <Button variant="outline" size="lg" asChild className="hover:bg-primary/10">
-              <a href="mailto:ruturajdaphal05@gmail.com" className="flex items-center gap-2">
-                <Mail className="h-5 w-5" />
-                Email
-              </a>
-            </Button>
-            <Button variant="outline" size="lg" asChild className="hover:bg-primary/10">
-              <a href="https://linkedin.com/in/ruturaj-daphal-rd0501" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                <Linkedin className="h-5 w-5" />
-                LinkedIn
-              </a>
-            </Button>
+        <div className="absolute inset-0 bg-background/85" />
+        
+        <div className="relative z-10 max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+          <div 
+            className={`transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+            }`}
+          >
+            <div className="text-sm text-primary font-medium mb-4">→ Introduction</div>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+              Ruturaj <br />
+              <span className="text-primary">Daphal.</span>
+            </h1>
+            <p className="text-xl text-muted-foreground mb-4">
+              AI & Generative AI Engineer, based in Pune.
+            </p>
+            <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-lg">
+              AI & GenAI Developer skilled in building intelligent applications using LangChain, 
+              Gemini Pro, and OpenAI tools. Focused on creating scalable, real-world AI solutions 
+              with expertise in deep learning frameworks and vector databases.
+            </p>
+            
+            <div className="flex gap-4 mb-8">
+              <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                <a href="#projects" className="flex items-center gap-2">
+                  My Projects <ArrowRight className="h-4 w-4" />
+                </a>
+              </Button>
+              <Button variant="outline" asChild>
+                <a href="mailto:ruturajdaphal05@gmail.com">Contact Me</a>
+              </Button>
+            </div>
+
+            <div className="flex gap-4">
+              <Button variant="ghost" size="icon" asChild>
+                <a href="https://github.com/Ruturaj0501" target="_blank" rel="noopener noreferrer">
+                  <Github className="h-5 w-5" />
+                </a>
+              </Button>
+              <Button variant="ghost" size="icon" asChild>
+                <a href="https://linkedin.com/in/ruturaj-daphal-rd0501" target="_blank" rel="noopener noreferrer">
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              </Button>
+              <Button variant="ghost" size="icon" asChild>
+                <a href="mailto:ruturajdaphal05@gmail.com">
+                  <Mail className="h-5 w-5" />
+                </a>
+              </Button>
+            </div>
           </div>
-          
-          <ChevronDown className="h-8 w-8 text-primary animate-bounce mx-auto" />
+
+          <div 
+            className={`transition-all duration-1000 delay-300 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+            }`}
+          >
+            <div className="grid grid-cols-2 gap-6">
+              {stats.map((stat, index) => (
+                <Card key={stat.label} className="portfolio-card text-center p-6" style={{ animationDelay: `${index * 100}ms` }}>
+                  <div className="text-3xl font-bold text-primary mb-2">{stat.number}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                </Card>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Skills Section */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 bg-muted/10">
         <div className="max-w-6xl mx-auto">
-          <h2 className="section-heading text-center">Technical Skills</h2>
+          <div className="text-center mb-16">
+            <div className="text-sm text-primary font-medium mb-4">→ My Expertise</div>
+            <h2 className="text-4xl font-bold mb-4">Technical Skills</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Specialized in cutting-edge AI technologies and machine learning frameworks
+            </p>
+          </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {Object.entries(skills).map(([category, skillList], index) => (
-              <Card key={category} className={`portfolio-card animate-slide-up`} style={{ animationDelay: `${index * 150}ms` }}>
+              <Card key={category} className={`portfolio-card animate-slide-up hover:scale-105`} style={{ animationDelay: `${index * 150}ms` }}>
                 <h3 className="text-xl font-bold mb-4 text-primary">{category}</h3>
                 <div className="flex flex-wrap gap-2">
                   {skillList.map((skill) => (
@@ -146,21 +214,47 @@ const Portfolio = () => {
       </section>
 
       {/* Projects Section */}
-      <section className="py-20 px-6 bg-muted/20">
+      <section id="projects" className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="section-heading text-center">Selected Projects</h2>
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="text-center mb-16">
+            <div className="text-sm text-primary font-medium mb-4">→ My Work</div>
+            <h2 className="text-4xl font-bold mb-4">Selected Projects</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              A showcase of AI-powered applications and machine learning solutions
+            </p>
+          </div>
+          
+          <div className="grid lg:grid-cols-2 gap-8">
             {projects.map((project, index) => (
-              <Card key={project.title} className={`portfolio-card animate-fade-in`} style={{ animationDelay: `${index * 200}ms` }}>
-                <h3 className="text-xl font-bold mb-3 text-primary">{project.title}</h3>
-                <p className="text-muted-foreground mb-4 leading-relaxed">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
+              <Card key={project.title} className={`portfolio-card group animate-fade-in`} style={{ animationDelay: `${index * 200}ms` }}>
+                <div className="flex items-start justify-between mb-4">
+                  <div className="p-3 bg-primary/10 rounded-lg">
+                    <project.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <span className="text-xs text-muted-foreground font-medium px-2 py-1 bg-muted rounded-full">
+                    {project.category}
+                  </span>
+                </div>
+                
+                <h3 className="text-xl font-bold mb-3 text-primary group-hover:text-primary/80 transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed text-sm">
+                  {project.description}
+                </p>
+                
+                <div className="flex flex-wrap gap-2 mb-4">
                   {project.technologies.map((tech) => (
                     <span key={tech} className="skill-tag text-xs">
                       {tech}
                     </span>
                   ))}
                 </div>
+                
+                <Button variant="ghost" className="group-hover:bg-primary/5 w-full justify-between">
+                  View Details
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
               </Card>
             ))}
           </div>
@@ -168,23 +262,32 @@ const Portfolio = () => {
       </section>
 
       {/* Experience Section */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="section-heading text-center">Professional Experience</h2>
-          <div className="space-y-8">
+      <section id="experience" className="py-20 px-6 bg-muted/10">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="text-sm text-primary font-medium mb-4">→ Professional Journey</div>
+            <h2 className="text-4xl font-bold mb-4">Experience</h2>
+            <p className="text-muted-foreground">
+              Building AI solutions across different industries and platforms
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
             {experiences.map((exp, index) => (
               <Card key={exp.title} className={`portfolio-card animate-slide-up`} style={{ animationDelay: `${index * 200}ms` }}>
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                <div className="flex items-start justify-between mb-6">
                   <div>
-                    <h3 className="text-xl font-bold text-primary">{exp.title}</h3>
-                    <p className="text-lg font-semibold">{exp.company}</p>
+                    <h3 className="text-xl font-bold text-primary mb-1">{exp.title}</h3>
+                    <p className="text-lg font-semibold text-foreground">{exp.company}</p>
                   </div>
-                  <span className="text-muted-foreground font-medium">{exp.period}</span>
+                  <span className="text-muted-foreground font-medium text-sm bg-muted px-3 py-1 rounded-full">
+                    {exp.period}
+                  </span>
                 </div>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {exp.achievements.map((achievement, i) => (
-                    <li key={i} className="text-muted-foreground flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
+                    <li key={i} className="text-muted-foreground flex items-start gap-3 text-sm leading-relaxed">
+                      <span className="text-primary mt-1 text-lg">→</span>
                       {achievement}
                     </li>
                   ))}
@@ -208,44 +311,91 @@ const Portfolio = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="section-heading text-center">Get In Touch</h2>
-          <div className="grid md:grid-cols-2 gap-12">
-            <Card className="portfolio-card animate-slide-up">
-              <h3 className="text-xl font-bold mb-6 text-primary">Send me a message</h3>
-              <form className="space-y-4">
-                <Input placeholder="Your Name" className="bg-background/50" />
-                <Input type="email" placeholder="Your Email" className="bg-background/50" />
-                <Textarea placeholder="Your Message" rows={5} className="bg-background/50" />
-                <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                  Send Message
-                </Button>
-              </form>
-            </Card>
+      <section id="contact" className="py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="text-sm text-primary font-medium mb-4">→ Let's Connect</div>
+            <h2 className="text-4xl font-bold mb-4">Get In Touch</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Ready to collaborate on AI projects or discuss innovative solutions? Let's talk!
+            </p>
+          </div>
+          
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Contact Form */}
+            <div className="lg:col-span-2">
+              <Card className="portfolio-card">
+                <h3 className="text-xl font-bold mb-6 text-primary">Send me a message</h3>
+                <form className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <Input placeholder="Your Name" className="bg-background/50" />
+                    <Input type="email" placeholder="Your Email" className="bg-background/50" />
+                  </div>
+                  <Input placeholder="Subject" className="bg-background/50" />
+                  <Textarea placeholder="Your Message" rows={6} className="bg-background/50" />
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                    Send Message
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </form>
+              </Card>
+            </div>
             
-            <Card className="portfolio-card animate-slide-up" style={{ animationDelay: '200ms' }}>
-              <h3 className="text-xl font-bold mb-6 text-primary">Contact Information</h3>
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Mail className="h-5 w-5 text-primary" />
-                  <span>ruturajdaphal05@gmail.com</span>
+            {/* Contact Info */}
+            <div className="space-y-6">
+              <Card className="portfolio-card">
+                <h3 className="text-lg font-bold mb-4 text-primary">Contact Info</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/20">
+                    <Mail className="h-5 w-5 text-primary" />
+                    <div>
+                      <div className="text-sm text-muted-foreground">Email</div>
+                      <div className="font-medium">ruturajdaphal05@gmail.com</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/20">
+                    <span className="h-5 w-5 text-primary flex items-center justify-center">📍</span>
+                    <div>
+                      <div className="text-sm text-muted-foreground">Location</div>
+                      <div className="font-medium">Pune, Maharashtra</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Linkedin className="h-5 w-5 text-primary" />
-                  <a href="https://linkedin.com/in/ruturaj-daphal-rd0501" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-                    linkedin.com/in/ruturaj-daphal-rd0501
-                  </a>
+              </Card>
+              
+              <Card className="portfolio-card">
+                <h3 className="text-lg font-bold mb-4 text-primary">Follow Me</h3>
+                <div className="flex gap-3">
+                  <Button variant="outline" size="icon" asChild>
+                    <a href="https://github.com/Ruturaj0501" target="_blank" rel="noopener noreferrer">
+                      <Github className="h-4 w-4" />
+                    </a>
+                  </Button>
+                  <Button variant="outline" size="icon" asChild>
+                    <a href="https://linkedin.com/in/ruturaj-daphal-rd0501" target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="h-4 w-4" />
+                    </a>
+                  </Button>
+                  <Button variant="outline" size="icon" asChild>
+                    <a href="mailto:ruturajdaphal05@gmail.com">
+                      <Mail className="h-4 w-4" />
+                    </a>
+                  </Button>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="h-5 w-5 text-primary flex items-center justify-center">📍</span>
-                  <span>Pune, Maharashtra</span>
-                </div>
-              </div>
-            </Card>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
+      
+      {/* Footer */}
+      <footer className="py-8 px-6 border-t border-border">
+        <div className="max-w-6xl mx-auto text-center">
+          <p className="text-muted-foreground">
+            © 2024 Ruturaj Daphal. Designed & Built with passion for AI.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
