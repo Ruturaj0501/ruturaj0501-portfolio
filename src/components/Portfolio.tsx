@@ -64,7 +64,7 @@ const Portfolio = () => {
   ];
 
   const stats = [
-    { number: "5+", label: "AI Projects" },
+    { number: "10", label: "AI Projects" },
     { number: "2", label: "Internships" },
     { number: "10+", label: "Technologies" },
     { number: "4", label: "Years Learning" }
