@@ -21,8 +21,7 @@ const Portfolio = () => {
     "LLM Frameworks": ["Gemini", "OpenAI", "Langchain", "Hugging Face", "LLAMA"],
     "ML Frameworks": ["TensorFlow", "PyTorch", "NLP", "Scikit-learn"],
     "Data Analysis & Visualization": ["Pandas", "NumPy", "Matplotlib", "Seaborn", "OpenCV", "Folium"],
-    "Programming Languages": ["Python", "C++", "Java"],
-    "Platforms": ["Jupyter Notebook", "Git"]
+    "Programming Languages": ["Python", "C++", "Java", "Git", "Jupyter Notebook"]
   };
 
   const projects = [
@@ -31,21 +30,24 @@ const Portfolio = () => {
       description: "Architected a versatile AI chatbot using Streamlit and LangChain, integrating multiple LLMs (Gemini, Llama) for text, PDF, and image analysis. Engineered a Retrieval-Augmented Generation (RAG) pipeline with ChromaDB and HuggingFace embeddings for accurate document Q&A.",
       technologies: ["LLM", "Langchain", "Hugging Face", "Streamlit", "ChromaDB"],
       category: "AI/ML",
-      icon: Brain
+      icon: Brain,
+      link: "https://enchanced-chatbot-kv8dftq8zwcanpywhgfrzd.streamlit.app/"
     },
     {
       title: "ATS Resume Analyzer",
       description: "Built an interactive app using Gemini 1.5 Flash to evaluate resumes against job descriptions. Provided ATS-style feedback, resume improvement suggestions, and LLM-driven match scoring.",
       technologies: ["Streamlit", "Gemini Flash", "Python", "PyPDF2"],
       category: "AI/ML",
-      icon: Brain
+      icon: Brain,
+      link: "https://ats-agent-92yekseq3rgcsac7yrzymj.streamlit.app/"
     },
     {
-      title: "Movie Sentiment & Salary Predicting Model",
-      description: "Developed a movie sentiment classifier with an LSTM model in TensorFlow, leveraging NLTK for text preprocessing to accurately predict sentiment.",
-      technologies: ["LSTM", "TensorFlow", "NLTK"],
-      category: "Machine Learning",
-      icon: Code
+      title: "Data Analyst Agent",
+      description: "This project is a Data Analyst Assistant built with Streamlit and powered by the Gemini AI model. The application allows users to upload various file formats, including CSV, PDF, DOCX, and images, to extract and analyze data. Users can ask natural language questions about the uploaded content to receive detailed, AI-generated insights. For tabular data, the app also features an interactive section to generate and display visualizations like bar, line, and scatter plots.",
+      technologies: ["Streamlit", "Gemini AI", "Python", "Data Analysis"],
+      category: "Data Science",
+      icon: Database,
+      link: "https://data-analyst-agent-iaapiybp7rmjxzrvpylhk2.streamlit.app/"
     },
     {
       title: "Fine Tuning with LoRA",
@@ -59,12 +61,21 @@ const Portfolio = () => {
       description: "Developed a Random Forest model to predict customer booking completion, analyzing trends and feature importance using Matplotlib and Seaborn.",
       technologies: ["Pandas", "Matplotlib", "Sklearn", "Seaborn"],
       category: "Data Science",
-      icon: Database
+      icon: Database,
+      link: "https://github.com/Ruturaj0501/British_Airlines"
+    },
+    {
+      title: "Movie Sentiment & Salary Predicting Model And More",
+      description: "Developed a movie sentiment classifier with an LSTM model in TensorFlow, leveraging NLTK for text preprocessing to accurately predict sentiment.",
+      technologies: ["LSTM", "TensorFlow", "NLTK"],
+      category: "Machine Learning",
+      icon: Code,
+      link: "https://github.com/Ruturaj0501"
     }
   ];
 
   const stats = [
-    { number: "10", label: "AI Projects" },
+    { number: "10+", label: "AI Projects" },
     { number: "2", label: "Internships" },
     { number: "10+", label: "Technologies" },
     { number: "4", label: "Years Learning" }
@@ -251,10 +262,19 @@ const Portfolio = () => {
                   ))}
                 </div>
                 
-                <Button variant="ghost" className="group-hover:bg-primary/5 w-full justify-between">
-                  View Details
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                {project.link ? (
+                  <Button variant="ghost" className="group-hover:bg-primary/5 w-full justify-between" asChild>
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between w-full">
+                      View Details
+                      <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </a>
+                  </Button>
+                ) : (
+                  <Button variant="ghost" className="group-hover:bg-primary/5 w-full justify-between">
+                    View Details
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                )}
               </Card>
             ))}
           </div>
