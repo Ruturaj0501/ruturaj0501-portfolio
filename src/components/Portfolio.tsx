@@ -1,14 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { Mail, Linkedin, Github, ExternalLink, ChevronDown, ArrowRight, Code, Database, Brain } from 'lucide-react';
+import { Mail, Linkedin, Github, ExternalLink, ChevronDown, ArrowRight, Code, Database, Brain, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import emailjs from '@emailjs/browser';
+import { useToast } from '@/hooks/use-toast';
 import heroBackground from '@/assets/hero-bg.jpg';
+
+// Form validation schema
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
+  email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
+  subject: z.string().trim().min(1, "Subject is required").max(200, "Subject must be less than 200 characters"),
+  message: z.string().trim().min(1, "Message is required").max(1000, "Message must be less than 1000 characters")
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 const Portfolio = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+  
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      subject: '',
+      message: ''
+    }
+  });
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init("orMD8UBfZ-jGBX57j");
+  }, []);
 
   useEffect(() => {
     setIsVisible(true);
@@ -16,6 +48,41 @@ const Portfolio = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Handle form submission
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true);
+    
+    try {
+      await emailjs.send(
+        "service_2pnynvj",
+        "template_06tt57y",
+        {
+          from_name: data.name,
+          from_email: data.email,
+          subject: data.subject,
+          message: data.message,
+          to_name: "Ruturaj Daphal"
+        }
+      );
+      
+      toast({
+        title: "Message sent successfully!",
+        description: "Thank you for reaching out. I'll get back to you soon.",
+      });
+      
+      form.reset();
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      toast({
+        title: "Failed to send message",
+        description: "Please try again or contact me directly at ruturajdaphal05@gmail.com",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const skills = {
     "LLM Frameworks": ["Gemini", "OpenAI", "Langchain", "Hugging Face", "LLAMA"],
@@ -346,16 +413,71 @@ const Portfolio = () => {
             <div className="lg:col-span-2">
               <Card className="portfolio-card">
                 <h3 className="text-xl font-bold mb-6 text-primary">Send me a message</h3>
-                <form className="space-y-6">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
-                    <Input placeholder="Your Name" className="bg-background/50" />
-                    <Input type="email" placeholder="Your Email" className="bg-background/50" />
+                    <div>
+                      <Input 
+                        {...form.register('name')}
+                        placeholder="Your Name" 
+                        className="bg-background/50"
+                        disabled={isSubmitting}
+                      />
+                      {form.formState.errors.name && (
+                        <p className="text-sm text-red-500 mt-1">{form.formState.errors.name.message}</p>
+                      )}
+                    </div>
+                    <div>
+                      <Input 
+                        {...form.register('email')}
+                        type="email" 
+                        placeholder="Your Email" 
+                        className="bg-background/50"
+                        disabled={isSubmitting}
+                      />
+                      {form.formState.errors.email && (
+                        <p className="text-sm text-red-500 mt-1">{form.formState.errors.email.message}</p>
+                      )}
+                    </div>
                   </div>
-                  <Input placeholder="Subject" className="bg-background/50" />
-                  <Textarea placeholder="Your Message" rows={6} className="bg-background/50" />
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                    Send Message
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                  <div>
+                    <Input 
+                      {...form.register('subject')}
+                      placeholder="Subject" 
+                      className="bg-background/50"
+                      disabled={isSubmitting}
+                    />
+                    {form.formState.errors.subject && (
+                      <p className="text-sm text-red-500 mt-1">{form.formState.errors.subject.message}</p>
+                    )}
+                  </div>
+                  <div>
+                    <Textarea 
+                      {...form.register('message')}
+                      placeholder="Your Message" 
+                      rows={6} 
+                      className="bg-background/50"
+                      disabled={isSubmitting}
+                    />
+                    {form.formState.errors.message && (
+                      <p className="text-sm text-red-500 mt-1">{form.formState.errors.message.message}</p>
+                    )}
+                  </div>
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </>
+                    )}
                   </Button>
                 </form>
               </Card>
